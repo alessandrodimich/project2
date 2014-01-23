@@ -7,11 +7,15 @@
     <meta name="description" content="">
     <%= favicon_link_tag %>
     <title><%= full_title(yield(:title)) %></title>
-    <!-- Bootstrap core CSS -->
-    <%= stylesheet_link_tag "bootstrap", media: "all", "data-turbolinks-track" => true %>
+    <!-- Bootstrap core CSS from the CDN-->
+    <%= stylesheet_link_tag "http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css", "data-turbolinks-track" => true %>
+    <!-- Import font awesomefrom the CDN⁄ -->
+    <%= stylesheet_link_tag "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", "data-turbolinks-track" => true %>
     <%= stylesheet_link_tag "application", media: "all",
                                            "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag"//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js", "data-turbolinks-track" => true %>
+
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
   </head>
