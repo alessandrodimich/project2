@@ -8,5 +8,5 @@
     $ bundle exec rake db:test:prepare
     $ bundle exec rspec spec/
 
-    commit di prova
+
 
