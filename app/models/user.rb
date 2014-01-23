@@ -6,8 +6,11 @@ class User < ActiveRecord::Base
                                    class_name:  "Relationship",
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
+
   before_save { self.email = email.downcase }
   before_create :create_remember_token
+  before_create :create_star_token
+
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
@@ -15,13 +18,6 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :password, length: { minimum: 6 }
 
-  # def User.new_remember_token
-  #   SecureRandom.urlsafe_base64
-  # end
-
-  # def User.encrypt(token)
-  #   Digest::SHA1.hexdigest(token.to_s)
-  # end
 
   def feed
     Micropost.from_users_followed_by(self)
@@ -42,6 +38,11 @@ class User < ActiveRecord::Base
   private
 
     def create_remember_token
-      self.remember_token = self.email
+      self.remember_token = Digest::SHA1.hexdigest(Time.now.to_f.to_s.sub(".", "") + self.email.to_s )
     end
+
+  # Set a permanent multipurpose cookie
+  def create_star_token
+     self.star_token = Digest::SHA1.hexdigest(Time.now.to_f.to_s.sub(".", "") + self.email.to_s )
+  end
 end
