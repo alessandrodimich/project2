@@ -7,6 +7,10 @@ class User < ActiveRecord::Base
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
 
+  default_scope lambda { order('users.name') }
+
+
+
   before_save { self.email = email.downcase }
   before_create :create_remember_token
   before_create :create_star_token
