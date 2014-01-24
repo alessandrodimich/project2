@@ -1,0 +1,26 @@
+<div class="container">
+
+  <% if @user.errors.any? %>
+    <div class="alert alert-danger">
+      <h2>Form is invalid</h2>
+      <ul>
+        <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+  <div class="form-signin">
+    <h2 class="form-signin-heading">Reset your password</h2>
+
+    <%= form_for @user, :url => password_reset_url(params[:id]) do |f| %>
+      <%= f.password_field :password, :placeholder => "Password", :class => "form-control" %>
+      <%= f.password_field :password_confirmation, :placeholder => "Confirm Password", :class => "form-control" %>
+      <%= f.submit "Update Password", class: "btn btn-lg btn-primary btn-block" %>
+    <% end %>
+
+  </div>
+</div>

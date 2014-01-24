@@ -23,7 +23,7 @@
         <label>Remember me</label>
       <%= check_box_tag :remember_me, params[:remember_me], :checked => true   %>
       </div>
-      <p>Forgotten password? <%= link_to "click here to reset it!", "#" %></p>
+      <p>Forgotten password? <%= link_to "click here to reset it!", new_password_reset_path %></p>
       <% end %>
     </p>
 

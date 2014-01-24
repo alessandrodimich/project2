@@ -1,13 +1,18 @@
 SampleApp::Application.routes.draw do
+
   resources :users do
     member do
       get :following, :followers
     end
   end
+
   resources :sessions,      only: [:new, :create, :destroy]
   resources :microposts,    only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
+  resources :password_resets
+
   root to: 'static_pages#home'
+
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
@@ -15,4 +20,5 @@ SampleApp::Application.routes.draw do
   match '/about',   to: 'static_pages#about',   via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
   match '/theme', to: 'static_pages#theme', via: 'get'
+  match '/reset-password', to: 'password_resets#new', as: 'reset_password', via: 'get'
 end

@@ -35,6 +35,13 @@ class User < ActiveRecord::Base
     relationships.find_by(followed_id: other_user.id).destroy!
   end
 
+  def send_password_reset
+    self.password_reset_token = Digest::SHA1.hexdigest(Time.now.to_f.to_s.sub(".", "") + self.email.to_s)
+    self.password_reset_sent_at = Time.zone.now
+    self.update_columns(:password_reset_token => self.password_reset_token, :password_reset_sent_at => self.password_reset_sent_at )
+    UserMailer.password_reset(self).deliver
+  end
+
   private
 
     def create_remember_token
