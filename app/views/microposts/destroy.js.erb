@@ -1,1 +1,2 @@
 $("li#<%= @micropost.id %>").remove()
+$("#micropost-counter").html('<%= pluralize(current_user.microposts.count, "micropost") %>')
