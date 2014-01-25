@@ -1,9 +1,12 @@
 <div class="#comments-container"></div>
+<ol class="microposts">
+  <div id="microposts-start"></div>
+  <% if @feed_items.any? %>
 
-<% if @feed_items.any? %>
-  <ol class="microposts">
-    <div id="microposts-start"></div>
+
     <%= render partial: 'shared/feed_item', collection: @feed_items %>
-  </ol>
+
   <%= will_paginate @feed_items %>
 <% end %>
+
+</ol>
